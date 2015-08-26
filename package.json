@@ -1,0 +1,19 @@
+{
+  "name": "node-orm2-mysql-demo",
+  "version": "1.0.0",
+  "description": "inspiration-orm-demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "orm-2"
+  ],
+  "author": "hacke2",
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "^2.9.0",
+    "orm": "^2.1.26"
+  }
+}
