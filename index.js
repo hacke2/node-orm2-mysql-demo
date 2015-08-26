@@ -69,13 +69,13 @@ orm.connect(opts, function (err, db) {
     //categoryDAL.findByProductLine({}).one(function(err, data) {
     //    console.log(data)
     //});
-    db.driver.execQuery(
-        "SELECT category.?? FROM category WHERE category.?? = ?",
-        ['name', 'productLineID', '33a9495313130b3929e597ce4e875508'],
-        function (err, data) {
-            console.log(JSON.stringify(data))
-        }
-    );
+    //db.driver.execQuery(
+    //    "SELECT category.?? FROM category WHERE category.?? = ?",
+    //    ['name', 'productLineID', '33a9495313130b3929e597ce4e875508'],
+    //    function (err, data) {
+    //        console.log(JSON.stringify(data))
+    //    }
+    //);
 
     //更新
     //productLineDAL.find({
@@ -94,26 +94,5 @@ orm.connect(opts, function (err, db) {
     //        }));
     //    }
     //});
-
-
-//search data
-//    User.find({name:'Jane'}, function (err, User) {
-//        console.log("User found: ", User.length);
-//        console.log("User name: ", User[0].name);
-//        console.log("User age : ", User[0].age);
-        /*
-         //update data
-         User[1].age=19
-         User[1].save(function (err) {
-         // err.msg = "under-age";
-         console.log("update successfully!");
-         });*/
-
-
-        /*
-         //delete data
-         User[0].remove(function(err){
-         console.log("delete successfully!")
-         })*/
 
 });
