@@ -32,11 +32,11 @@ orm.connect(opts, function (err, db) {
     var productLineDAL = db.define("productLine", ProductLine.getType());
     var categoryDAL = db.define("category", Category.getType());
 
+    //建表
     productLineDAL.sync();
     categoryDAL.sync();
 
-    //建表
-    //categoryTest.sync();
+
     //初始化数据
     //productLineDAL.create([productLine1, productLine2],function(err, data) {
     //    if(err) {
@@ -63,19 +63,31 @@ orm.connect(opts, function (err, db) {
     //    }
     //});
 
-    //db.settings.set("properties.association_key", "{name}ID");
-    ////找到神马搜索所有产品线的所有业务
-    //categoryDAL.hasOne('productLine', productLineDAL);
-    //categoryDAL.findByProductLine({}).one(function(err, data) {
-    //    console.log(data)
-    //});
-    //db.driver.execQuery(
-    //    "SELECT category.?? FROM category WHERE category.?? = ?",
-    //    ['name', 'productLineID', '33a9495313130b3929e597ce4e875508'],
-    //    function (err, data) {
-    //        console.log(JSON.stringify(data))
-    //    }
-    //);
+    db.settings.set("properties.association_key", "{name}ID");
+    //找到神马搜索所有产品线的所有业务
+
+    categoryDAL.hasOne('productline', productLineDAL, {reverse: 'category'});
+    console.time('1');
+    //productLine1.productLineID
+    for(var i = 0; i < 10000; i++) {
+        productLineDAL('33a9495313130b3929e597ce4e875508').getCategory((function(i) {
+            return function(err, category) {
+                i == 99 && console.timeEnd('1');
+                //console.log(JSON.stringify(category));
+            }
+        })(i));
+    }
+
+    console.time('2');
+    for(var i = 0, sql = 'SELECT category.?? FROM category WHERE category.?? = ?'; i < 10000; i++) {
+        db.driver.execQuery(sql, ['name', 'productLineID', ''], (function(i) {
+            return function (err, data) {
+                i == 99 && console.timeEnd('2');
+                //console.log(JSON.stringify(data))
+            }
+
+        })(i));
+    }
 
     //更新
     //productLineDAL.find({
